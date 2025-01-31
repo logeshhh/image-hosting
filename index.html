@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+</head>
+<body>
+    <canvas id="renderCanvas" style="width:100%; height:100vh;"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+        var scene = new BABYLON.Scene(engine);
+        var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 4, 4, BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas, true);
+        var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
+
+        // Load the .glb model from GitHub
+        BABYLON.SceneLoader.ImportMesh(
+            "",
+            "https://raw.githubusercontent.com/logeshhh/image-hosting/main/",
+            "AnyConv.com__C3_STR_BASEMENTTOTERRACE.glb",
+            scene,
+            function (newMeshes) {
+                scene.createDefaultCameraOrLight(true, true, true);
+            }
+        );
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>
